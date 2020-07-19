@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router";
-import firebase from '../firebase';
+import firebase from 'firebase';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,6 +8,7 @@ class Login extends React.Component {
     this.state = { number_phone: ''};
     this.handleLogin = this.handleLogin.bind(this);
   }
+
   async handleLogin(e) {
     e.preventDefault();
     const { number_phone } = this.state;
@@ -18,8 +19,19 @@ class Login extends React.Component {
     }
   }
 
+  componentDidMount(){
+    firebase.auth().languageCode = 'vi';
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': function(response) {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        this.handleLogin();
+      }
+    });
+  }
+
   signInPhoneNumber = (number_phone) => {
-    firebase.auth().signInWithPhoneNumber(number_phone, new firebase.auth.RecaptchaVerifier('recaptcha-container')).then(function (confirmationResult) {
+    firebase.auth().signInWithPhoneNumber(number_phone, window.recaptchaVerifier).then(function (confirmationResult) {
       this.context.router.push({
         pathname: '/ConfirmCode',
         state: {confirmationResult: confirmationResult}
@@ -33,6 +45,7 @@ class Login extends React.Component {
     const { number_phone } = this.state;
     return (
       <div>
+        <div id="recaptcha-container"></div>
         <div>
           <label htmlFor="number">Phone Number</label>
           <input id="email" value={number_phone} type="text" onChange={ (e) => this.setState({ number_phone: e.target.value }) } />
