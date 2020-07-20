@@ -1,11 +1,11 @@
 import firebase from "firebase";
 export default firebase.initializeApp({
-  apiKey: "AIzaSyCrtqKcrJhoxrPR7T_ESkuIVjGhWHmeCBQ",
-  authDomain: "react-rails-test-f.firebaseapp.com",
-  databaseURL: "https://react-rails-test-f.firebaseio.com",
-  projectId: "react-rails-test-f",
-  storageBucket: "react-rails-test-f.appspot.com",
-  messagingSenderId: "875873010889",
-  appId: "1:875873010889:web:d9482bb2dd9e163e2f7918",
-  measurementId: "G-4L1J7L39C9"
+  apiKey: "AIzaSyD8_EJW4M7_PxIXd9OyiwDSsyr_aQY1Ju0",
+  authDomain: "heloapp-9c37b.firebaseapp.com",
+  databaseURL: "https://heloapp-9c37b.firebaseio.com",
+  projectId: "heloapp-9c37b",
+  storageBucket: "heloapp-9c37b.appspot.com",
+  messagingSenderId: "979006296553",
+  appId: "1:979006296553:web:1c9ee539b81fdd7243bb78",
+  measurementId: "G-H2XT9TTNDB"
 });

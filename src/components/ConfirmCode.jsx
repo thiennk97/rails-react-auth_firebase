@@ -11,6 +11,7 @@ class ConfirmCode extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { code } = this.state;
+    console.log(this.props)
     const confirmationResult = this.props.location.state.confirmationResult
     try {
       await confirmationResult.confirm(code)
@@ -18,10 +19,6 @@ class ConfirmCode extends React.Component {
     } catch (error) {
       alert(error);
     }
-  }
-
-  appVerifier = () => {
-    new firebase.auth.RecaptchaVerifier('recaptcha-container');
   }
 
   render() {

@@ -7,6 +7,7 @@ class Login extends React.Component {
     super(props);
     this.state = { number_phone: ''};
     this.handleLogin = this.handleLogin.bind(this);
+    this.signInPhoneNumber = this.signInPhoneNumber.bind(this);
   }
 
   async handleLogin(e) {
@@ -24,18 +25,15 @@ class Login extends React.Component {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
       'size': 'normal',
       'callback': function(response) {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        this.handleLogin();
       }
     });
   }
 
   signInPhoneNumber = (number_phone) => {
+    const history = this.props.history
     firebase.auth().signInWithPhoneNumber(number_phone, window.recaptchaVerifier).then(function (confirmationResult) {
-      this.context.router.push({
-        pathname: '/ConfirmCode',
-        state: {confirmationResult: confirmationResult}
-      })
+      console.log(confirmationResult)
+      history.pushState({ confirmationResult: confirmationResult }, '', '/ConfirmCode');
     }).catch(function (error) {
       console.log(error)
     });
